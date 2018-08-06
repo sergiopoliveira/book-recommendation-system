@@ -1,4 +1,4 @@
-package com.book.bookrecommendationsystem;
+package com.book;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
