@@ -67,16 +67,16 @@ public class BookServiceImpl implements BookService{
 		
 		if(bracket.equals("First")) {
 			
-			// 14 books will be randomly selected
+		// 14 books will be randomly selected
 		listBooks.addAll(bookRepository.getRandomBooks("14"));
 		
-			// 6 books will be selected based on feedback
+		// 6 books will be selected based on feedback
 		listBooks.addAll(bookRepository.getBooksOfGenre(userFound.getId().toString(), "6"));
 		}
 		
 		else if(bracket.equals("Second")) {
 
-			// 10 books will be randomly selected
+		// 10 books will be randomly selected
 		listBooks.addAll(bookRepository.getRandomBooks("10"));
 		
 		// 10 books will be selected based on feedback
@@ -85,7 +85,7 @@ public class BookServiceImpl implements BookService{
 		
 		else if(bracket.equals("Third")) {
 
-			// 4 books will be randomly selected
+		// 4 books will be randomly selected
 		listBooks.addAll(bookRepository.getRandomBooks("4"));
 		
 		// 16 books will be selected based on feedback
