@@ -36,7 +36,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 			ErrorResponse error = new ErrorResponse(
 												HttpStatus.BAD_REQUEST.value(),
 												"Invalid Parameter",
-												"Currency does not exist",
+												e.getMessage(),
 												System.currentTimeMillis());
 
 			//return ResponseEntity

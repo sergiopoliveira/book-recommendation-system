@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.book.api.mapper.UserMapper;
 import com.book.api.model.UserDTO;
 import com.book.domain.User;
+import com.book.exceptions.InvalidParameterException;
 import com.book.repositories.UserRepository;
 
 @Service
@@ -22,8 +23,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDTO createNewUser(UserDTO userDTO) {
 
-		User user = userMapper.userDTOToUser(userDTO);
+		// check if user with that name already exists
+		if(userRepository.findAll()
+			.stream()
+			.filter(user -> user.getName().equals(userDTO.getName()))
+			.count() > 0) {
+		throw new InvalidParameterException("Username already exists");
+		}
 		
+		// save and return user DTO
+		User user = userMapper.userDTOToUser(userDTO);
 		return saveAndReturnDTO(user);
 	}
 	
@@ -32,8 +41,6 @@ public class UserServiceImpl implements UserService{
 		User savedUser = userRepository.save(user);
 		
 		UserDTO returnDTO = userMapper.userToUserDTO(savedUser);
-		
-		//returnDTO.setCustomerUrl(getCustomerUrl(savedCustomer.getId()));
 		
 		return returnDTO;
 }
