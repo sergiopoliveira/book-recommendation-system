@@ -48,9 +48,9 @@ This will give a negative feedback for the book with that specific ASIN, making 
 
 Books recommendations will be based exclusively on Genre. Each user will have associated a HashMap where key = ”Genre” and value = “sum of feedbacks given on books of that genre.” The possible feedback will be:
 
--> liked the book" = 1
--> "not interested" = 0
--> "disliked the book" = -1
+ liked the book" = 1
+, "not interested" = 0
+, "disliked the book" = -1
 
 Then, to calculate the recommended list (example):
 A user has this associated HashMap<Genre,Integer>:
