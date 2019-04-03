@@ -38,11 +38,6 @@ compileJava {
     ]
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
-}
-
-
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
