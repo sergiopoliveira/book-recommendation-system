@@ -10,6 +10,14 @@ REST API to retrieve a book recommendation list based on personal preference.
 
 ## Getting Started
 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+
+### Prerequisites
+
+JDK 11 or Docker is required to run this project.
+
+### Build and Run
+
 Build and run the project with Maven:
 
 ```
@@ -73,13 +81,29 @@ Then add all and put in brackets, for example in this case 10+(-3)+15=22, so fir
 
 The general idea is that the more feedback the user gives, the more books are recommended based on their Genre preferences
 
-### Tools used
+## Running the tests
 
-● Java 8
-● Spring Boot
-● Spring Data JPA -> repositories to hold data
-● Project Lombok -> reduce Java boilerplate code
-● MapStruct
-● Gradle -> build and dependency management
-● JUnit, Mockito -> for unit testing
-● H2 in-memory database
+Tests created using JUnit and Mockito. Run them as:
+
+```
+mvn test
+```
+
+## Built With
+
+*   Java 11
+*   Spring Boot
+*   Spring Data JPA
+*   Project Lombok
+*   MapStruct
+*   Maven
+*   JUnit, Mockito
+*   H2 in-memory database
+
+## Authors
+
+*   **Sérgio Oliveira** - [sergiopoliveira](https://github.com/sergiopoliveira)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
