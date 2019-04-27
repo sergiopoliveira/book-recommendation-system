@@ -1,5 +1,11 @@
 # Book Recommendation System
 
+[![CircleCI](https://circleci.com/gh/sergiopoliveira/book-recommendation-system.svg?style=svg)](https://circleci.com/gh/sergiopoliveira/book-recommendation-system)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b84bf2bcc5949338bb9806e35b4988e)](https://www.codacy.com/app/sergiopoliveira/book-recommendation-system?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sergiopoliveira/book-recommendation-system&amp;utm_campaign=Badge_Grade)
+[![codecov](https://codecov.io/gh/sergiopoliveira/book-recommendation-system/branch/master/graph/badge.svg)](https://codecov.io/gh/sergiopoliveira/book-recommendation-system)
+
+
+
 REST API to retrieve a book recommendation list based on personal preference.
 
 ## Getting Started
