@@ -1,13 +1,12 @@
 package com.book.mapper;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Ignore;
-import org.junit.Test;
-
 import com.book.api.mapper.UserMapper;
 import com.book.api.model.UserDTO;
 import com.book.domain.User;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 @Ignore
 public class UserMapperTest {
@@ -15,7 +14,7 @@ public class UserMapperTest {
 	private static final String NAME = "Freddy";
 	private static final String EMAIL = "freddy@gmail.com";
 	
-	UserMapper userMapper = UserMapper.INSTANCE;
+	private UserMapper userMapper = UserMapper.INSTANCE;
 	
 	@Test
 	public void userToUserDTOTest() throws Exception {

@@ -2,53 +2,51 @@ package com.book.exceptions;
 
 public class ErrorResponse {
 
-	private int status;
-	private String title;
-	private String description;
-	private long timestamp;
-	
-	public ErrorResponse() {
-		
-	}
-	
-	public ErrorResponse(int status, String title, String description, long timeStamp) {
-		this.status = status;
-		this.title = title;
-		this.description = description;
-		this.timestamp = timeStamp;
-	}
+    private int status;
+    private String title;
+    private String description;
+    private long timestamp;
 
-	
-	public String getTitle() {
-		return title;
-	}
+    public ErrorResponse() {
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public ErrorResponse(int status, String title, String description, long timeStamp) {
+        this.status = status;
+        this.title = title;
+        this.description = description;
+        this.timestamp = timeStamp;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public int getStatus() {
-		return status;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public long getTimeStamp() {
-		return timestamp;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	public void setTimeStamp(long timeStamp) {
-		this.timestamp = timeStamp;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public long getTimeStamp() {
+        return timestamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timestamp = timeStamp;
+    }
 
 }
