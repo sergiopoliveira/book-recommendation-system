@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +26,6 @@ public class BookServiceImpl implements BookService {
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
     }
-
 
     @Override
     public List<BookDTO> getBooksByName(String name) {
@@ -64,14 +64,14 @@ public class BookServiceImpl implements BookService {
         // generate 20 books based on feedback Map
         List<Book> listBooks = new ArrayList<>();
 
-        if (bracket.equals("First")) {
+        if ("First".equals(bracket)) {
 
             // 14 books will be randomly selected
             listBooks.addAll(bookRepository.getRandomBooks("14"));
 
             // 6 books will be selected based on feedback
             listBooks.addAll(bookRepository.getBooksOfGenre(userFound.getId().toString(), "6"));
-        } else if (bracket.equals("Second")) {
+        } else if ("Second".equals(bracket)) {
 
             // 10 books will be randomly selected
             listBooks.addAll(bookRepository.getRandomBooks("10"));
@@ -95,7 +95,6 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public BookDTO giveFeedback(String name, String asin, String feedback) {
 
@@ -115,8 +114,7 @@ public class BookServiceImpl implements BookService {
         }
 
         // get book genre
-        String genre = "";
-        genre = findBook(asin).getGenre();
+        String genre = findBook(asin).getGenre();
 
         // add feedback to that user's feedback HashMap
         User userFound = findUser(name);
@@ -138,7 +136,6 @@ public class BookServiceImpl implements BookService {
         return bookMapper.bookToBookDTO(findBook(asin));
     }
 
-
     private long checkUser(String name) {
 
         return userRepository.findAll()
@@ -157,18 +154,22 @@ public class BookServiceImpl implements BookService {
 
     private User findUser(String name) {
 
-        return userRepository.findAll()
+        Optional<User> optUser = userRepository.findAll()
                 .stream()
                 .filter(user -> user.getName().equals(name))
-                .findFirst().get();
+                .findFirst();
+
+        return optUser.orElseGet(User::new);
     }
 
     private Book findBook(String asin) {
 
-        return bookRepository.findAll()
+        Optional<Book> optBook = bookRepository.findAll()
                 .stream()
                 .filter(book -> book.getAsin().equals(asin))
-                .findFirst().get();
+                .findFirst();
+
+        return optBook.orElseGet(Book::new);
     }
 
 
