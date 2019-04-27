@@ -10,10 +10,11 @@ REST API to retrieve a book recommendation list based on personal preference.
 
 ## Getting Started
 
-Build and run the project with Gradle:
+Build and run the project with Maven:
 
 ```
-gradle clean build bootRun
+mvn package
+mvn spring-boot:run
 ```
 
 ## REST Endpoints
