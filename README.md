@@ -4,8 +4,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b84bf2bcc5949338bb9806e35b4988e)](https://www.codacy.com/app/sergiopoliveira/book-recommendation-system?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sergiopoliveira/book-recommendation-system&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/sergiopoliveira/book-recommendation-system/branch/master/graph/badge.svg)](https://codecov.io/gh/sergiopoliveira/book-recommendation-system)
 
-
-
 REST API to retrieve a book recommendation list based on personal preference.
 
 ## Getting Started
@@ -75,9 +73,9 @@ A user has this associated HashMap<Genre,Integer>:
 
 Then add all and put in brackets, for example in this case 10+(-3)+15=22, so first bracket:
 
-1. First bracket - if total values added <50, only 30% of recommended books reflect those genres preference, rest is random;
-2. Second bracket - if total values added >=50 and <150 then system recommends 50% of books on t, rest random;
-3. Third bracket - if total values added >=150 then system recommends 80% books on those genres, rest random.
+1.  First bracket - if total values added <50, only 30% of recommended books reflect those genres preference, rest is random;
+2.  Second bracket - if total values added >=50 and <150 then system recommends 50% of books on t, rest random;
+3.  Third bracket - if total values added >=150 then system recommends 80% books on those genres, rest random.
 
 The general idea is that the more feedback the user gives, the more books are recommended based on their Genre preferences
 

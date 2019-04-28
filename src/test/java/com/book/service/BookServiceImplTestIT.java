@@ -24,11 +24,10 @@ import static org.junit.Assert.assertTrue;
 public class BookServiceImplTestIT {
 
     @Autowired
-    private
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
 
     private UserService userService;
 

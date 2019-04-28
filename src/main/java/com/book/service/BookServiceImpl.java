@@ -93,7 +93,7 @@ public class BookServiceImpl implements BookService {
     public BookDTO giveFeedback(String name, String asin, String feedback) {
 
         // check if feedback is -1, 0 or 1
-        if (!((feedback.equals("-1")) || (feedback.equals("0")) || (feedback.equals("1")))) {
+        if (!(("-1".equals(feedback)) || ("0".equals(feedback)) || ("1".equals(feedback)))) {
             throw new InvalidParameterException("Feedback not in [-1:1] range");
         }
 
