@@ -4,6 +4,7 @@ import com.book.api.mapper.BookMapper;
 import com.book.api.model.BookDTO;
 import com.book.domain.Book;
 import com.book.domain.User;
+import com.book.enums.Bracket;
 import com.book.exceptions.InvalidParameterException;
 import com.book.repositories.BookRepository;
 import com.book.repositories.UserRepository;
@@ -49,37 +50,36 @@ public class BookServiceImpl implements BookService {
          *
          */
 
-        String bracket = "";
+        Bracket bracket = Bracket.UNDEFINED;
 
-        if (sum < 50) bracket = "First";
-        if (sum >= 50 && sum < 150) bracket = "Second";
-        if (sum >= 150) bracket = "Third";
+        if (sum < 50) bracket = Bracket.FIRST;
+        if (sum >= 50 && sum < 150) bracket = Bracket.SECOND;
+        if (sum >= 150) bracket = Bracket.THIRD;
 
         // generate 20 books based on feedback Map
         List<Book> listBooks = new ArrayList<>();
 
-        if ("First".equals(bracket)) {
+        if (bracket == Bracket.FIRST) {
 
             // 14 books will be randomly selected
             listBooks.addAll(bookRepository.getRandomBooks("14"));
 
             // 6 books will be selected based on feedback
             listBooks.addAll(bookRepository.getBooksOfGenre(userFound.getId().toString(), "6"));
-        } else if ("Second".equals(bracket)) {
+        } else if (bracket == Bracket.SECOND) {
 
             // 10 books will be randomly selected
             listBooks.addAll(bookRepository.getRandomBooks("10"));
 
             // 10 books will be selected based on feedback
             listBooks.addAll(bookRepository.getBooksOfGenre(userFound.getId().toString(), "10"));
-        } else {
+        } else if (bracket == Bracket.THIRD){
 
             // 4 books will be randomly selected
             listBooks.addAll(bookRepository.getRandomBooks("4"));
 
             // 16 books will be selected based on feedback
             listBooks.addAll(bookRepository.getBooksOfGenre(userFound.getId().toString(), "16"));
-
         }
 
         //return list of books
