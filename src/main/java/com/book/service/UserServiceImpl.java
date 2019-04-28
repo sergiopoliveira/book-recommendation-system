@@ -36,8 +36,6 @@ public class UserServiceImpl implements UserService {
     private UserDTO saveAndReturnDTO(User user) {
 
         User savedUser = userRepository.save(user);
-
         return userMapper.userToUserDTO(savedUser);
     }
-
 }

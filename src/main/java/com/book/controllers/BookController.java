@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(BookController.BASE_URL)
 public class BookController {
 
-    public static final String BASE_URL = "/api/books";
+    public static final String BASE_URL = "/api/v1/books";
 
     private final BookService bookService;
 
@@ -31,6 +31,5 @@ public class BookController {
 
         return bookService.giveFeedback(user, asin, feedback);
     }
-
 
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,13 +29,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDTO> getBooksByName(String name) {
 
-        // check if user exits
-        if (checkUser(name) == 0) {
-            throw new InvalidParameterException("User does not exist");
-        }
-
         // find user
-        User userFound = findUser(name);
+        User userFound = findUserByName(name);
 
         // find bracket
         int sum = 0;
@@ -98,26 +92,16 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDTO giveFeedback(String name, String asin, String feedback) {
 
-        // check if username exists
-        if (checkUser(name) == 0) {
-            throw new InvalidParameterException("User does not exist");
-        }
-
-        // check if book exists
-        if (checkBook(asin) == 0) {
-            throw new InvalidParameterException("Book ASIN does not exist");
-        }
-
         // check if feedback is -1, 0 or 1
         if (!((feedback.equals("-1")) || (feedback.equals("0")) || (feedback.equals("1")))) {
             throw new InvalidParameterException("Feedback not in [-1:1] range");
         }
 
         // get book genre
-        String genre = findBook(asin).getGenre();
+        String genre = findBookByAsin(asin).getGenre();
 
         // add feedback to that user's feedback HashMap
-        User userFound = findUser(name);
+        User userFound = findUserByName(name);
         Integer feedbackInt = userFound.getFeedback().putIfAbsent(genre, Integer.parseInt(feedback));
 
         /*
@@ -133,46 +117,19 @@ public class BookServiceImpl implements BookService {
         userRepository.save(userFound);
 
         // return BookDTO
-        return bookMapper.bookToBookDTO(findBook(asin));
+        return bookMapper.bookToBookDTO(findBookByAsin(asin));
     }
 
-    private long checkUser(String name) {
-
-        return userRepository.findAll()
-                .stream()
-                .filter(user -> user.getName().equals(name))
-                .count();
+    private User findUserByName(String name) {
+        return userRepository
+                .findByName(name)
+                .orElseThrow(() -> new InvalidParameterException("User does not exist"));
     }
 
-    private long checkBook(String asin) {
-
-        return bookRepository.findAll()
-                .stream()
-                .filter(book -> book.getAsin().equals(asin))
-                .count();
+    private Book findBookByAsin(String asin) {
+        return bookRepository
+                .findByAsin(asin)
+                .orElseThrow(() -> new InvalidParameterException("Book does not exist"));
     }
-
-    private User findUser(String name) {
-
-        Optional<User> optUser = userRepository.findAll()
-                .stream()
-                .filter(user -> user.getName().equals(name))
-                .findFirst();
-
-        return optUser.orElseGet(User::new);
-    }
-
-    private Book findBook(String asin) {
-
-        Optional<Book> optBook = bookRepository.findAll()
-                .stream()
-                .filter(book -> book.getAsin().equals(asin))
-                .findFirst();
-
-        return optBook.orElseGet(Book::new);
-    }
-
 
 }
-
-

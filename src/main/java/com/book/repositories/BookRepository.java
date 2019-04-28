@@ -1,13 +1,12 @@
 package com.book.repositories;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.book.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.book.domain.Book;
+import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long>{
 
@@ -23,4 +22,8 @@ public interface BookRepository extends JpaRepository<Book, Long>{
 			  nativeQuery = true)
 	List<Book> getBooksOfGenre(@Param("id") String id,
             @Param("limit") String limit);
+
+	@Query(value = "SELECT * FROM book WHERE asin = :asin LIMIT 1",
+			nativeQuery = true)
+	Optional<Book> findByAsin(String asin);
 }
