@@ -2,6 +2,8 @@ package com.book.bootstrap;
 
 import com.book.domain.User;
 import com.book.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Component;
 //code on startup
 @Component
 public class Bootstrap implements CommandLineRunner {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Bootstrap.class);
 
     private UserRepository userRepository;
 
@@ -47,6 +51,6 @@ public class Bootstrap implements CommandLineRunner {
         userRepository.save(userSecondBracket);
         userRepository.save(userThirdBracket);
 
-        System.out.println("Data Loaded for User: " + userRepository.count());
+        LOG.info("Data Loaded for User: {}", userRepository.count());
     }
 }
