@@ -28,34 +28,34 @@ mvn spring-boot:run
 ## REST Endpoints
 
 ```
-POST /api/users -> register user with name and email
-POST /api/books/{name}/{asin}/{feedback} -> give feedback by that user for book
-GET /api/books{name} -> returns 20 recommended books for that user
+POST /api/v1/users -> register user with name and email
+POST /api/v1/books/{name}/{asin}/{feedback} -> give feedback by that user for book
+GET /api/v1/books{name} -> returns 20 recommended books for that user
 ```
 ## Testing Examples
 
 To test creation of user POST on the following url:
 ```
-http://localhost:8080/api/users
+http://localhost:8080/api/v1/users
 ```
 this JSON: 
 ```
 {
-	"name" : "Sergio",
-	"email" : "ema@ml.com"
+	"name" : "FooBar",
+	"email" : "foo@bar.com"
 }
 ```
 POST it twice to check it doesn't allow repeated usernames.
 
 To test recommendation of books:
 ```
-GET http://localhost:8080/api/books/Sean
+GET http://localhost:8080/api/v1/books/Sean
 ```
 Sean is a user that belongs to bracket three (check business logic below) and has a high preference for History books, so at least 16 books will be with the History genre.
 
 To test recommendation of books:
 ```
-POST http://localhost:8080/api/books/Michael/143124048/-1
+POST http://localhost:8080/api/v1/books/Michael/143124048/-1
 ```
 This will give a negative feedback for the book with that specific ASIN, making that genre less likely to be recommended for the user.
 
