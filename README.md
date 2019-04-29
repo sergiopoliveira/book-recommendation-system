@@ -12,15 +12,31 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-JDK 11 or Docker is required to run this project.
+JDK 11 and Maven or Docker is required to run this project.
 
 ### Build and Run
+
+#### Maven
 
 Build and run the project with Maven:
 
 ```
 mvn package
 mvn spring-boot:run
+```
+
+#### Docker
+
+Pull image: 
+
+```actuator 
+docker pull sergiopoliveira/book-recommendation-system
+```
+
+Run it:
+
+```
+docker run -p 8080:8080 sergiopoliveira/book-recommendation-system
 ```
 
 ## REST Endpoints
