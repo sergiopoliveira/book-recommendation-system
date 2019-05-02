@@ -1,5 +1,6 @@
 package com.book.service;
 
+import com.book.api.mapper.BookMapper;
 import com.book.api.mapper.UserMapper;
 import com.book.api.model.BookDTO;
 import com.book.bootstrap.Bootstrap;
@@ -7,7 +8,6 @@ import com.book.domain.User;
 import com.book.repositories.BookRepository;
 import com.book.repositories.UserRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-@Ignore
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class BookServiceImplTestIT {
@@ -43,6 +42,7 @@ public class BookServiceImplTestIT {
         bootstrap.run(); // load data
 
         userService = new UserServiceImpl(UserMapper.INSTANCE, userRepository);
+        bookService = new BookServiceImpl(BookMapper.INSTANCE, bookRepository, userRepository);
     }
 
     @Test
@@ -55,7 +55,9 @@ public class BookServiceImplTestIT {
         List<BookDTO> listBooks = bookService.getBooksByName(firstBracketUser.getName());
 
         // filter books that belong to those genre for that user preferences
-        long count = listBooks.stream().filter(list -> list.getGenre().equals("History")).count();
+        long count = listBooks
+                .stream()
+                .filter(list -> list.getGenre().equals("Science & Math")).count();
 
         assertTrue(count >= 4);
 

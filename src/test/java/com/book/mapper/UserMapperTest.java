@@ -3,12 +3,10 @@ package com.book.mapper;
 import com.book.api.mapper.UserMapper;
 import com.book.api.model.UserDTO;
 import com.book.domain.User;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-@Ignore
 public class UserMapperTest {
 
 	private static final String NAME = "Freddy";
