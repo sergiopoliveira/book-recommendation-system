@@ -9,8 +9,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -21,7 +19,6 @@ public class UserServiceTest {
     private static final Long ID = 1L;
     private static final String NAME = "Joe";
     private static final String EMAIL = "Adams";
-    private static final Map<String, Integer> FEEDBACK = Map.of();
 
     private UserService userService;
 
@@ -45,7 +42,7 @@ public class UserServiceTest {
         User savedUser = new User();
         savedUser.setName(userDTO.getName());
         savedUser.setEmail(userDTO.getEmail());
-        savedUser.setId(1L);
+        savedUser.setId(ID);
 
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
