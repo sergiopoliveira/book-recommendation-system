@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -63,13 +65,13 @@ public class UserServiceTest {
         userDTO.setName(NAME);
         userDTO.setEmail(EMAIL);
 
-        User savedUser = new User();
-        savedUser.setName(userDTO.getName());
-        savedUser.setEmail(userDTO.getEmail());
-        savedUser.setId(ID);
+        User repeatedUser = new User();
+        repeatedUser.setName(userDTO.getName());
+        repeatedUser.setEmail(userDTO.getEmail());
+        repeatedUser.setId(ID);
 
         // repeated user throws exception
-        when(userRepository.save(any(User.class))).thenThrow(InvalidParameterException.class);
+        when(userRepository.findAll()).thenReturn(List.of(repeatedUser));
 
         // when
         userService.createNewUser(userDTO);
