@@ -5,6 +5,7 @@ import com.book.api.mapper.UserMapper;
 import com.book.api.model.BookDTO;
 import com.book.bootstrap.Bootstrap;
 import com.book.domain.User;
+import com.book.exceptions.InvalidParameterException;
 import com.book.repositories.BookRepository;
 import com.book.repositories.UserRepository;
 import org.junit.Before;
@@ -49,7 +50,7 @@ public class BookServiceImplTestIT {
     public void getFirstBracketUser() {
 
         // get user that falls in the first bracket
-        User firstBracketUser = userRepository.getOne(1L);
+        User firstBracketUser = userRepository.findByName("Adam").orElseThrow(InvalidParameterException::new);
 
         // get the list of books that are returned for that user
         List<BookDTO> listBooks = bookService.getBooksByName(firstBracketUser.getName());
@@ -57,10 +58,46 @@ public class BookServiceImplTestIT {
         // filter books that belong to those genre for that user preferences
         long count = listBooks
                 .stream()
-                .filter(list -> list.getGenre().equals("Science & Math")).count();
+                .filter(list -> list.getGenre().equals("Teen & Young Adult") || list.getGenre().equals("Science & Math")).count();
 
-        assertTrue(count >= 4);
+        // at least 30% of selected books are based on preferences
+        assertTrue(count >= 6);
+    }
 
+    @Test
+    public void getSecondBracketUser() {
+
+        // get user that falls in the first bracket
+        User firstBracketUser = userRepository.findByName("Michael").orElseThrow(InvalidParameterException::new);
+
+        // get the list of books that are returned for that user
+        List<BookDTO> listBooks = bookService.getBooksByName(firstBracketUser.getName());
+
+        // filter books that belong to those genre for that user preferences
+        long count = listBooks
+                .stream()
+                .filter(list -> list.getGenre().equals("Romance") || list.getGenre().equals("Teen & Young Adult")).count();
+
+        // at least 30% of selected books are based on preferences
+        assertTrue(count >= 10);
+    }
+
+    @Test
+    public void getThirdBracketUser() {
+
+        // get user that falls in the first bracket
+        User firstBracketUser = userRepository.findByName("Sean").orElseThrow(InvalidParameterException::new);
+
+        // get the list of books that are returned for that user
+        List<BookDTO> listBooks = bookService.getBooksByName(firstBracketUser.getName());
+
+        // filter books that belong to those genre for that user preferences
+        long count = listBooks
+                .stream()
+                .filter(list -> list.getGenre().equals("History")).count();
+
+        // at least 80% of selected books are based on preferences
+        assertTrue(count >= 16);
     }
 
 }
