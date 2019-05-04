@@ -3,6 +3,7 @@ package com.book.service;
 import com.book.api.mapper.UserMapper;
 import com.book.api.model.UserDTO;
 import com.book.domain.User;
+import com.book.exceptions.InvalidParameterException;
 import com.book.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void createNewUser() {
+    public void createNewUserTest() {
 
         // given
         UserDTO userDTO = new UserDTO();
@@ -52,6 +53,29 @@ public class UserServiceTest {
         // then
         assertEquals(userDTO.getName(), savedDto.getName());
         assertEquals(userDTO.getEmail(), savedDto.getEmail());
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    public void createNewRepeatedUserTest() {
+
+        // given
+        UserDTO userDTO = new UserDTO();
+        userDTO.setName(NAME);
+        userDTO.setEmail(EMAIL);
+
+        User savedUser = new User();
+        savedUser.setName(userDTO.getName());
+        savedUser.setEmail(userDTO.getEmail());
+        savedUser.setId(ID);
+
+        // repeated user throws exception
+        when(userRepository.save(any(User.class))).thenThrow(InvalidParameterException.class);
+
+        // when
+        UserDTO savedDto = userService.createNewUser(userDTO);
+
+        // then exception is thrown
+
     }
 
 }
