@@ -1,6 +1,7 @@
 package com.book.controllers;
 
 import com.book.api.model.BookDTO;
+import com.book.exceptions.InvalidParameterException;
 import com.book.service.BookService;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,7 +35,7 @@ public class BookControllerTest {
     private MockMvc mockMvc;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders.standaloneSetup(bookController)
@@ -69,6 +71,17 @@ public class BookControllerTest {
     }
 
     @Test
+    public void testGetBooksByNameNotFound() throws Exception {
+
+        when(bookService.getBooksByName(anyString())).thenThrow(InvalidParameterException.class);
+
+        mockMvc.perform(get(BookController.BASE_URL + "/Foo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void testUpdateFeedback() throws Exception {
         BookDTO book1 = new BookDTO();
         book1.setAsin("1234567");
@@ -85,6 +98,22 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.genre", equalTo("Romance")))
                 .andExpect(jsonPath("$.title", equalTo("Crime and Punishment")))
                 .andExpect(jsonPath("$.author", equalTo("Dostoievski")));
+    }
+
+    @Test
+    public void testUpdateIncorrectFeedback() throws Exception {
+        BookDTO book1 = new BookDTO();
+        book1.setAsin("1234567");
+        book1.setAuthor("Dostoievski");
+        book1.setGenre("Romance");
+        book1.setTitle("Crime and Punishment");
+
+        when(bookService.giveFeedback("Adam", "123145", "4")).thenThrow(InvalidParameterException.class);
+
+        mockMvc.perform(post(BookController.BASE_URL + "/Adam/123145/4")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
