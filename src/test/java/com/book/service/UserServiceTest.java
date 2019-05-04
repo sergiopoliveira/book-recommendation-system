@@ -72,7 +72,7 @@ public class UserServiceTest {
         when(userRepository.save(any(User.class))).thenThrow(InvalidParameterException.class);
 
         // when
-        UserDTO savedDto = userService.createNewUser(userDTO);
+        userService.createNewUser(userDTO);
 
         // then exception is thrown
 
