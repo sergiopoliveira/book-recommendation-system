@@ -46,7 +46,7 @@ public class BookServiceImplTestIT {
     }
 
     @Test
-    public void getFirstBracketUser() throws Exception {
+    public void getFirstBracketUser() {
 
         // get user that falls in the first bracket
         User firstBracketUser = userRepository.getOne(1L);

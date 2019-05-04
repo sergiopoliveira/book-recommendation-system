@@ -39,22 +39,7 @@ public class BookServiceImpl implements BookService {
             sum += i;
         }
 
-        /*
-         * 1. First bracket - if total values added <50, only 30% of recommended books
-         * reflect those genres preference, rest is random;
-         * 2. Second bracket - if total
-         * values added >=50 and <150 then system recommends 50% of books on t, rest
-         * random;
-         *  3. Third bracket - if total values added >=150 then system recommends
-         * 80% books on those genres, rest random.
-         *
-         */
-
-        Bracket bracket = Bracket.UNDEFINED;
-
-        if (sum < 50) bracket = Bracket.FIRST;
-        if (sum >= 50 && sum < 150) bracket = Bracket.SECOND;
-        if (sum >= 150) bracket = Bracket.THIRD;
+        Bracket bracket = Bracket.calculateBracket(sum);
 
         // generate 20 books based on feedback Map
         List<Book> listBooks = new ArrayList<>();
