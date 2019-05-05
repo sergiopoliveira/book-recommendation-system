@@ -10,7 +10,7 @@ public class BookTest {
     private Book book;
 
     @Before
-    public void setup() {
+    public void setUp() {
         book = new Book();
     }
 

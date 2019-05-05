@@ -148,7 +148,7 @@ public class BookServiceTest {
         when(userRepository.findByName(anyString())).thenReturn(Optional.of(user));
 
         // when
-        BookDTO bookDTO = bookService.giveFeedback("", "", "2");
+        bookService.giveFeedback("", "", "2");
 
         // then thrown exception
     }

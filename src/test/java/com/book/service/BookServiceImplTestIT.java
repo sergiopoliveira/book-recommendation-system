@@ -1,7 +1,6 @@
 package com.book.service;
 
 import com.book.api.mapper.BookMapper;
-import com.book.api.mapper.UserMapper;
 import com.book.api.model.BookDTO;
 import com.book.bootstrap.Bootstrap;
 import com.book.domain.User;
@@ -29,8 +28,6 @@ public class BookServiceImplTestIT {
     @Autowired
     private BookRepository bookRepository;
 
-    private UserService userService;
-
     private BookService bookService;
 
     @Before
@@ -42,7 +39,7 @@ public class BookServiceImplTestIT {
         Bootstrap bootstrap = new Bootstrap(userRepository);
         bootstrap.run(); // load data
 
-        userService = new UserServiceImpl(UserMapper.INSTANCE, userRepository);
+
         bookService = new BookServiceImpl(BookMapper.INSTANCE, bookRepository, userRepository);
     }
 
