@@ -4,6 +4,7 @@ import com.book.api.mapper.BookMapper;
 import com.book.api.model.BookDTO;
 import com.book.domain.Book;
 import com.book.domain.User;
+import com.book.exceptions.InvalidParameterException;
 import com.book.repositories.BookRepository;
 import com.book.repositories.UserRepository;
 import org.junit.Before;
@@ -11,12 +12,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -27,7 +26,7 @@ public class BookServiceTest {
     private static final String RANDOM_GENRE = "History";
     private static final String NAME = "Adam";
     private static final String EMAIL = "foo@bar.com";
-    public static final int TOTAL_BOOKS = 20;
+    private static final int TOTAL_BOOKS = 20;
 
     private BookService bookService;
 
@@ -120,6 +119,38 @@ public class BookServiceTest {
 
     @Test
     public void giveFeedback() {
+
+        //given
+        Book book = new Book();
+        book.setGenre(GENRE);
+        User user = createUserFirstBracket();
+        user.setFeedback(new HashMap<>());
+        when(bookRepository.findByAsin(anyString())).thenReturn(Optional.of(book));
+        when(userRepository.findByName(anyString())).thenReturn(Optional.of(user));
+
+        // when
+        BookDTO bookDTO = bookService.giveFeedback("", "", "1");
+
+        // then
+        verify(bookRepository, times(2)).findByAsin(anyString());
+        verify(userRepository, times(1)).findByName(anyString());
+        assertNotNull(bookDTO);
+
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    public void giveImpossibleFeedback() {
+
+        //given
+        Book book = new Book();
+        User user = createUserThirdBracket();
+        when(bookRepository.findByAsin(anyString())).thenReturn(Optional.of(book));
+        when(userRepository.findByName(anyString())).thenReturn(Optional.of(user));
+
+        // when
+        BookDTO bookDTO = bookService.giveFeedback("", "", "2");
+
+        // then thrown exception
     }
 
     private List<Book> createListBooksOfGenre(int size) {
